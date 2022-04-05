@@ -1,10 +1,10 @@
 import './Message.style.css';
 
-export const Message = (props) => {
-    console.log(props);
+export const Message = ({ author, text }) => {
     return (
-        <h3 className="message" onClick={props.doFoo} >
-            I am a message {props.name}, age {props.age}
-        </h3>
+        <div className="message">
+            <sapn>{author}:</sapn>
+            <sapn>{text}</sapn>
+        </div>
     );
 };
