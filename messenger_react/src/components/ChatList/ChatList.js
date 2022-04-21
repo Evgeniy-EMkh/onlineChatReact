@@ -1,9 +1,19 @@
 import './ChatList.style.css';
-import { Chat } from "../Chat/Chat"
+import { BrowserRouter, Route, Routes, Link, Outlet } from 'react-router-dom';
 
-export const ChatList = () => {
+const chatList = [{ name: 'Chat1', id: 'chat1', },
+{ name: 'Chat2', id: 'chat2', },
+{ name: 'Chat3', id: 'chat3', }];
 
-    const chatList = [{ name: 'Chat1', id: 1 }, { name: 'Chat2', id: 2 }, { name: 'Chat3', id: 3 }];
-
-    chatList.map((e) => <Chat name={e.name} />);
-};
+export const ChatList = () => (
+    <>
+        <div className='chatList'>
+            {chatList.map((e) => (
+                <Link to={`/chat/${e.id}`} key={e.id}>
+                    {e.name}
+                </Link>
+            ))}
+        </div>
+        <Outlet />
+    </>
+);
