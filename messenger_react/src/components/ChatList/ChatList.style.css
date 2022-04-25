@@ -1,0 +1,9 @@
+.chatList {
+    position: absolute;
+    margin-left: 20px;
+}
+
+.chatList a {
+    display: block;
+    margin-bottom: 5px;
+}
