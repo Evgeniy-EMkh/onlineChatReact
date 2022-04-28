@@ -24,8 +24,6 @@ export const Form = ({ onSubmit }) => {
     return (
         <form className='form' onSubmit={handleSubmit}>
             <input className='form_input' value={value} onChange={handleCange} type='text' ref={inputRef} />
-            {/* <input className='form_button' type='submit' /> */}
-            {/* <TextField className='form_input' value={value} onChange={handleCange} /> */}
             <Button className='form_button' variant='contained' type='submit' >Submit</Button>
         </form>
     );
