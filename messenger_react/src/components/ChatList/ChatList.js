@@ -1,19 +1,33 @@
 import './ChatList.style.css';
-import { BrowserRouter, Route, Routes, Link, Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
+import { Form } from '../Form/Form';
 
-const chatList = [{ name: 'Chat1', id: 'chat1', },
-{ name: 'Chat2', id: 'chat2', },
-{ name: 'Chat3', id: 'chat3', }];
 
-export const ChatList = () => (
-    <>
-        <div className='chatList'>
-            {chatList.map((e) => (
-                <Link to={`/chat/${e.id}`} key={e.id}>
-                    {e.name}
-                </Link>
-            ))}
-        </div>
-        <Outlet />
-    </>
-);
+export const ChatList = ({ chats, addChat, deleteChat }) => {
+
+    const handleSubmit = (newChatName) => {
+        const newChat = {
+            name: newChatName,
+            id: `chat-${Date.now()}`
+        };
+
+        addChat(newChat);
+    };
+
+    return (
+        <>
+            <div className='chatList'>
+                {chats.map((e) => (
+                    <div key={e.id}>
+                        <Link to={`/chat/${e.id}`} >
+                            {e.name}
+                        </Link>
+                        <span onClick={() => deleteChat(e.id)}>Delete Chat</span>
+                    </div>
+                ))}
+            </div>
+            <Form onSubmit={handleSubmit} />
+            <Outlet />
+        </>
+    );
+};
