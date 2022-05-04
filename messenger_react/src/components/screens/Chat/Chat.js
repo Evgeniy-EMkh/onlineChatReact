@@ -6,7 +6,7 @@ import { AUTHORS } from '../../../utils/Constants';
 import { Navigate, useParams } from "react-router";
 import { useDispatch, useSelector } from 'react-redux';
 import { selectMessagesByChatId } from '../../../store/messages/selectors';
-import { addMessage } from '../../../store/messages/actions';
+import { addMessage, addMessageWithReply } from '../../../store/messages/actions';
 
 
 export function Chat() {
@@ -20,7 +20,7 @@ export function Chat() {
 
     const sendMessage = (text) => {
         dispatch(
-            addMessage(
+            addMessageWithReply(
                 {
                     author: AUTHORS.human,
                     text,
@@ -32,25 +32,6 @@ export function Chat() {
     };
 
     useEffect(() => {
-        const lastMessage = messages?.[messages?.length - 1];
-        if (lastMessage?.author === AUTHORS.human) {
-            timeout.current = setTimeout(() => {
-                dispatch(
-                    addMessage(
-                        {
-                            author: AUTHORS.robot,
-                            text: 'the message has been sent',
-                            id: `msg-${Date.now()}`,
-                        },
-                        id
-                    )
-                );
-            }, 1000);
-        }
-
-        return () => {
-            clearTimeout(timeout.current);
-        };
     }, [messages]);
 
     if (!messages) {

@@ -1,3 +1,5 @@
+import { AUTHORS } from "../../utils/Constants";
+
 export const ADD_MESSAGE = 'MESSAGES::ADD_MESSAGE';
 export const INIT_MESSAGES_FOR_CHAT = 'MESSAGES::INIT_MESSAGES_FOR_CHAT';
 export const CLEAR_MESSAGES_FOR_CHAT = 'MESSAGES::CLEAR_MESSAGES_FOR_CHAT';
@@ -21,3 +23,24 @@ export const clearMessages = (chatId) => ({
     payload: chatId,
 
 });
+
+let timeout;
+
+export const addMessageWithReply = (newMsg, chatId) => (dispatch) => {
+    dispatch(addMessage(newMsg, chatId));
+    if (newMsg?.author === AUTHORS.human) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            dispatch(
+                addMessage(
+                    {
+                        author: AUTHORS.robot,
+                        text: 'the message has been sent',
+                        id: `msg-${Date.now()}`,
+                    },
+                    chatId
+                )
+            );
+        }, 1000);
+    }
+};
