@@ -5,6 +5,7 @@ import { chatsReducer } from './chats/reducer';
 import { messageReducer } from './messages/reducer';
 import { profileReducer } from "./profile/reducer";
 import thunk from 'redux-thunk';
+import { articlesReducer } from './articles/reducer';
 
 const persistConfig = {
     key: 'gbMessenger',
@@ -12,6 +13,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
+    articles: articlesReducer,
     profile: profileReducer,
     chats: chatsReducer,
     messages: messageReducer,
